@@ -94,6 +94,7 @@ function main {
     --description "$DESCRIPTION"
 
   push_binaries
+  push_scripts
 }
 
 function push_binaries {
@@ -107,6 +108,41 @@ function push_binaries {
   done
 }
 
+function push_scripts {
+  github-release upload \
+    --user "$ORG" \
+    --repo "$REPO" \
+    --tag "$TAG" \
+    --name "dvm.sh" \
+    --file "dvm.sh"
 
+  github-release upload \
+    --user "$ORG" \
+    --repo "$REPO" \
+    --tag "$TAG" \
+    --name "dvm.cmd" \
+    --file "dvm.cmd"
+
+  github-release upload \
+    --user "$ORG" \
+    --repo "$REPO" \
+    --tag "$TAG" \
+    --name "dvm.ps1" \
+    --file "dvm.ps1"
+
+  github-release upload \
+    --user "$ORG" \
+    --repo "$REPO" \
+    --tag "$TAG" \
+    --name "install.ps1" \
+    --file "install.ps1"
+
+  github-release upload \
+    --user "$ORG" \
+    --repo "$REPO" \
+    --tag "$TAG" \
+    --name "install.sh" \
+    --file "install.sh"
+}
 
 main "$1"
