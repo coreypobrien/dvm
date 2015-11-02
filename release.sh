@@ -103,8 +103,8 @@ function push_binaries {
       --user "$ORG" \
       --repo "$REPO" \
       --tag "$TAG" \
-      --name "$file" \
-      --file "bin/${file}"
+      --name "$(basename $file)" \
+      --file "$file"
   done
 }
 
