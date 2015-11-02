@@ -85,6 +85,7 @@ function main {
   git fetch --tags $REMOTE
   make build-tagged-for-release TAG=$TAG
 
+  echo "Creating a new relase on GitHub..."
   github-release release \
     --user "$ORG" \
     --repo "$REPO" \
@@ -96,26 +97,16 @@ function main {
 }
 
 function push_binaries {
-  github-release upload \
-    --user "$ORG" \
-    --repo "$REPO" \
-    --tag "$TAG" \
-    --name "${BINARY}-linux-amd64" \
-    --file bin/${BINARY}-linux-amd64
-
-  github-release upload \
-    --user "$ORG" \
-    --repo "$REPO" \
-    --tag "$TAG" \
-    --name "${BINARY}-darwin-amd64" \
-    --file bin/${BINARY}-darwin-amd64
-
-  github-release upload \
-    --user "$ORG" \
-    --repo "$REPO" \
-    --tag "$TAG" \
-    --name "${BINARY}-windows-amd64.exe" \
-    --file bin/${BINARY}-windows-amd64.exe
+  for file in bin/${BINARY}-*; do
+    github-release upload \
+      --user "$ORG" \
+      --repo "$REPO" \
+      --tag "$TAG" \
+      --name "$file" \
+      --file "bin/${file}"
+  done
 }
+
+
 
 main "$1"
